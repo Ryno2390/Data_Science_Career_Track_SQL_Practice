@@ -110,6 +110,8 @@ SELECT facilities.name AS facility_name,
     JOIN `Members` members
     ON bookings.memid = members.memid
   WHERE bookings.starttime LIKE '2012-09-14%'
+  AND CASE WHEN members.memid = 0 THEN facilities.guestcost * bookings.slots
+  ELSE facilities.membercost * bookings.slots END > 30
   ORDER BY facility_cost DESC
 
 /* Q9: This time, produce the same result as in Q8, but using a subquery. */
